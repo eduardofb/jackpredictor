@@ -1,0 +1,12 @@
+#!/bin/bash
+
+pio-start-all
+pio app new jack --access-key 1234567890
+
+#add train dataset into elasticsearch
+python ./data/import_eventserver.py --access_key 1234567890 --file ./data/train.csv
+
+cd /DecisionTree
+pio build --clean
+pio train
+pio deploy
